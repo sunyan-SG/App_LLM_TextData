@@ -26,7 +26,7 @@ if "openai_key" not in st.session_state:
             st.session_state.prompt_history = []
             st.session_state.review_results = []
             st.session_state.df = None
-            st.session_state.filenames = []
+            #st.session_state.filenames = []
             st.session_state.time = datetime.datetime.now()
             st.session_state.uploaded_files = []
             #st.session_state.result_file = "d:/result_review.csv"
