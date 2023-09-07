@@ -79,7 +79,7 @@ if "openai_key" in st.session_state:
                         docs = document_search.similarity_search(question)
                         result = chain.run(input_documents=docs, question=question)
                         st.write(result)
-                        st.session_state.review_results.append((file, result))
+                        st.session_state.review_results.append((file.name, result))
 
     st.subheader("Review results of this query:")
     current_time2 = datetime.datetime.now()
