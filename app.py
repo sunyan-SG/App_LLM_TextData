@@ -29,7 +29,7 @@ if "openai_key" not in st.session_state:
             st.session_state.filenames = []
             st.session_state.time = datetime.datetime.now()
             st.session_state.uploaded_files = []
-            st.session_state.result_file = "d:/result_review.csv"
+            #st.session_state.result_file = "d:/result_review.csv"
 
 if "openai_key" in st.session_state:
     if st.session_state.df is None:
@@ -104,6 +104,6 @@ if "openai_key" in st.session_state:
         for row in st.session_state.review_results:
             csv_writer.writerow(row)
 
-    st.subheader("Download the AI reviewed results")
-    if st.button("Click to Download"):
-        st.markdown(f"[Click to download the results and find it in] ({st.session_state.result_file})", unsafe_allow_html=True)
+    #st.subheader("Download the AI reviewed results")
+    #if st.button("Click to Download"):
+    #    st.markdown(f"[Click to download the results and find it in] ({st.session_state.result_file})", unsafe_allow_html=True)
