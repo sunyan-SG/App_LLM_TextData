@@ -39,7 +39,7 @@ if "openai_key" in st.session_state:
             accept_multiple_files=True
         )
 
-    with st.form("Question"):
+    with st.form("Prompt:"):
         question = st.text_input("Question", value="", type="default")
         submitted = st.form_submit_button("Submit")
         if submitted:
