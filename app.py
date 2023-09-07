@@ -24,22 +24,22 @@ if "openai_key" not in st.session_state:
             st.session_state.openai_key = key
             st.session_state.prompt_history = []
             st.session_state.review_results = []
-            st.session_state.fp = None
+            st.session_state.df = None
             st.session_state.filenames = []
             st.session_state.time = datetime.datetime.now()
-            st.session_state.result_file = []
+            st.session_state.result_file = "result_review.csv"
 
 if "openai_key" in st.session_state:
-    if st.session_state.fp is None:
-        fp = st.text_input(
-            "Provide the path of pdf file/files for review"
-            #type=["pdf", "ps"],
+    if st.session_state.df is None:
+        uploaded_files = st.file_uploader(
+            "Upload your PDF files",
+            type=["pdf"],
+            accept_multiple_files=True
         )
-        if fp is not None:
-            file_path = Path(fp)
-            st.session_state.result_file = os.path.join(file_path, "review_results.csv")
-            file_names = os.listdir(file_path)
-            filenames = [file for file in file_names if os.path.isfile(os.path.join(file_path, file))]
+        if uploaded_files:
+            # Process the uploaded PDF files
+            for uploaded_file in uploaded_files:
+                st.session_state.filenames.append(uploaded_file.name())
 
     with st.form("Question"):
         question = st.text_input("Question", value="", type="default")
@@ -51,12 +51,12 @@ if "openai_key" in st.session_state:
                 llm = OpenAI()
                 chain = load_qa_chain(llm, chain_type="stuff")
                 articles = []
-                for file in filenames:
+                for file in st.session_state.filenames:
                     # articles.append(PdfReader(file_path + '\' + filenames[i]))
                     if file.endswith(".pdf"):
                         #pdf_file_path = os.path.join(str(file_path), filenames[i])  # Convert file_path to a string
-                        pdf_file_path = os.path.join(file_path, file)
-                        article = PdfReader(pdf_file_path)
+                        #pdf_file_path = os.path.join(file_path, file)
+                        article = PdfReader(file)
                         articles.append(article)
 
                         # read text from pdf
