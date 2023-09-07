@@ -97,7 +97,7 @@ if "openai_key" in st.session_state:
 
     if st.button("Clear prompt history"):
         st.session_state.prompt_history = []
-        st.session_state.fp = None
+        st.session_state.df = None
 
     # Open the CSV file in write mode and write the data
     with open(st.session_state.result_file, "w", newline="") as csv_file:
