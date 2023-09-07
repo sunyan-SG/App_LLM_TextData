@@ -1,0 +1,8 @@
+langchain
+openai
+faiss-cpu
+tiktoken
+PyPDF2
+typing_extensions
+streamlit~=1.23.1
+pathlib
