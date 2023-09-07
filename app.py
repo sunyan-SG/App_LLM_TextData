@@ -95,6 +95,7 @@ if "openai_key" in st.session_state:
         st.session_state.prompt_history = []
         st.session_state.df = None
 
+'''
     # Open the CSV file in write mode and write the data
     with open(st.session_state.result_file, "w", newline="") as csv_file:
         csv_writer = csv.writer(csv_file)
@@ -104,6 +105,8 @@ if "openai_key" in st.session_state:
         for row in st.session_state.review_results:
             csv_writer.writerow(row)
 
-    #st.subheader("Download the AI reviewed results")
-    #if st.button("Click to Download"):
-    #    st.markdown(f"[Click to download the results and find it in] ({st.session_state.result_file})", unsafe_allow_html=True)
+    st.subheader("Download the AI reviewed results")
+    if st.button("Click to Download"):
+       st.markdown(f"[Click to download the results and find it in] ({st.session_state.result_file})", unsafe_allow_html=True)
+
+'''
