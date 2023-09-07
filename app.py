@@ -39,8 +39,8 @@ if "openai_key" in st.session_state:
             accept_multiple_files=True
         )
 
-    with st.form("Prompt:"):
-        question = st.text_input("Question", value="", type="default")
+    with st.form("Question"):
+        question = st.text_input("Prompt:", value="", type="default")
         submitted = st.form_submit_button("Submit")
         if submitted:
             st.session_state.prompt_history.append(question)
