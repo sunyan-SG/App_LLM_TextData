@@ -12,6 +12,7 @@ from langchain.llms import OpenAI
 import os
 import datetime
 import csv
+import io
 
 
 st.title("Literature Review using GPT-4 (HSOR)")
@@ -24,22 +25,19 @@ if "openai_key" not in st.session_state:
             st.session_state.openai_key = key
             st.session_state.prompt_history = []
             st.session_state.review_results = []
+            st.session_state.uploaded_files = []
             st.session_state.df = None
             st.session_state.filenames = []
             st.session_state.time = datetime.datetime.now()
-            st.session_state.result_file = "result_review.csv"
+            st.session_state.result_file = "d:/result_review.csv"
 
 if "openai_key" in st.session_state:
     if st.session_state.df is None:
-        uploaded_files = st.file_uploader(
+        st.session_state.uploaded_files = st.file_uploader(
             "Upload your PDF files",
             type=["pdf"],
             accept_multiple_files=True
         )
-        if uploaded_files:
-            # Process the uploaded PDF files
-            for uploaded_file in uploaded_files:
-                st.session_state.filenames.append(uploaded_file.name)
 
     with st.form("Question"):
         question = st.text_input("Question", value="", type="default")
@@ -51,12 +49,14 @@ if "openai_key" in st.session_state:
                 llm = OpenAI()
                 chain = load_qa_chain(llm, chain_type="stuff")
                 articles = []
-                for file in st.session_state.filenames:
+                for file in st.session_state.uploaded_files:
                     # articles.append(PdfReader(file_path + '\' + filenames[i]))
-                    if file.endswith(".pdf"):
+                    if file.name.endswith(".pdf"):
                         #pdf_file_path = os.path.join(str(file_path), filenames[i])  # Convert file_path to a string
                         #pdf_file_path = os.path.join(file_path, file)
-                        article = PdfReader(file)
+                        pdf_data = file.read()  # Read the binary data of the PDF file
+                        article = PdfReader(io.BytesIO(pdf_data))
+                        #article = PdfReader(file.name)
                         articles.append(article)
 
                         # read text from pdf
@@ -97,7 +97,7 @@ if "openai_key" in st.session_state:
 
     if st.button("Clear prompt history"):
         st.session_state.prompt_history = []
-        st.session_state.fp = None
+        st.session_state.df = None
 
     # Open the CSV file in write mode and write the data
     with open(st.session_state.result_file, "w", newline="") as csv_file:
@@ -110,5 +110,4 @@ if "openai_key" in st.session_state:
 
     st.subheader("Download the AI reviewed results")
     if st.button("Click to Download"):
-        #st.download_button(label = "Download AI-Reviewed Results", data = st.session_state.result_file)
-        st.markdown(f"[Click to download the results and find it in your provided path] ({st.session_state.result_file})", unsafe_allow_html=True)
+        st.markdown(f"[Click to download the results and find it in] ({st.session_state.result_file})", unsafe_allow_html=True)
