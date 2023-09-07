@@ -85,7 +85,7 @@ if "openai_key" in st.session_state:
     current_time2 = datetime.datetime.now()
     time_review = current_time2-st.session_state.time
 
-    st.write("The time taken by ChatGPT for reviewing these PDF files is:", time_review, "seconds")
+    st.write("It took ChatGPT", time_review, "(time) to review these PDF files" )
     st.write(st.session_state.review_results)
 
     st.subheader("Prompt history:")
