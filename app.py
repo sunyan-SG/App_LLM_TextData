@@ -15,7 +15,7 @@ import csv
 import io
 
 
-st.title("Literature Review using GPT-4 (HSOR)")
+st.title("Text data analysis using GPT-4 (HSOR)")
 
 if "openai_key" not in st.session_state:
     with st.form("API key"):
@@ -82,7 +82,7 @@ if "openai_key" in st.session_state:
                         st.write(result)
                         st.session_state.review_results.append((file.name, result))
 
-    st.subheader("Review results of this query:")
+    st.subheader("Response of this query:")
     current_time2 = datetime.datetime.now()
     time_review = current_time2-st.session_state.time
 
