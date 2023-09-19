@@ -73,6 +73,7 @@ if "openai_key" in st.session_state:
                         texts = text_splitter.split_text(raw_text)
 
                         # Download embeddings from OpenAI
+
                         embeddings = OpenAIEmbeddings()
                         document_search = FAISS.from_texts(texts, embeddings)
 
@@ -85,15 +86,17 @@ if "openai_key" in st.session_state:
     current_time2 = datetime.datetime.now()
     time_review = current_time2-st.session_state.time
 
-    st.write("It took ChatGPT", time_review, "(time) to review these PDF files" )
+    st.write("It took ChatGPT", time_review, "(Time format- hour:min:second) to review these PDF files" )
     st.write(st.session_state.review_results)
+
+    if st.button("Clear result history"):
+        st.session_state.review_results = []
 
     st.subheader("Prompt history:")
     st.write(st.session_state.prompt_history)
 
     if st.button("Clear prompt history"):
         st.session_state.prompt_history = []
-        st.session_state.df = None
 
 
     ## Open the CSV file in write mode and write the data
