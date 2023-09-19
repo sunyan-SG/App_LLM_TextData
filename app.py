@@ -82,7 +82,7 @@ if "openai_key" in st.session_state:
                         st.write(result)
                         st.session_state.review_results.append((file.name, result))
 
-    st.subheader("Response of this query:")
+    st.subheader("Response to this query:")
     current_time2 = datetime.datetime.now()
     time_review = current_time2-st.session_state.time
 
