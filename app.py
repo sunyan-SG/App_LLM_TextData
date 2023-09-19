@@ -86,7 +86,7 @@ if "openai_key" in st.session_state:
     current_time2 = datetime.datetime.now()
     time_review = current_time2-st.session_state.time
 
-    st.write("It took ChatGPT", time_review, "(Time hour:min:second)", " to review these PDF files" )
+    st.write("It took ChatGPT", time_review, "(hour:min:second)", " to review these PDF files" )
     st.write(st.session_state.review_results)
 
     if st.button("Clear result history"):
