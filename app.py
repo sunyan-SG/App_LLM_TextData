@@ -14,7 +14,16 @@ import datetime
 import csv
 import io
 
-
+st.markdown(
+    """
+    <div style="position: relative; width: 60px; height: 60px;">
+        <div style="position: absolute; top: 16px; right: 16px;">
+        <img src="https://marcusgohmarcusgoh.com/wp/wp-content/uploads/2016/02/NHG-Logo_Enhanced_jpg.jpg" alt="Image" width="100">
+    </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 st.title("Text data analysis using GPT-4 (HSOR)")
 
 if "openai_key" not in st.session_state:
